@@ -1,8 +1,14 @@
 package com.janzenzhang.springboot.blog.controller;
 
+import com.janzenzhang.springboot.blog.domain.User;
+import com.janzenzhang.springboot.blog.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+
+
 
 /*
 主页控制器
@@ -10,6 +16,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class MainController {
+
+    @Autowired
+    private UserService userService;
 
 
     @GetMapping("/")
@@ -37,5 +46,20 @@ public class MainController {
     @GetMapping("/register")
     public String register() {
         return "register";
+    }
+
+    /**
+     * 注册用户
+     *
+     * @param
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/register")
+    public String registerUser(User user) {
+
+        userService.registerUser(user);
+        return "redirect:/login";
     }
 }
